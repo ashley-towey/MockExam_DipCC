@@ -12,11 +12,10 @@ let bgCol = '#D3D3D3';
 let cirCol = '#5A5A5A';
 let textCol = '#000000';
 
-let falseTemp = 0;
-
 // an array of values that will dislay the FALSE data
 let wmoVals = [];
 let a;
+let falseTemp = 0; // initialise the wrong temperature
 
 // x and y for animated circles/rain/snow
 let x = 30;
@@ -25,7 +24,6 @@ let vel = 5;
 let cirSize = 5;
 
 function preload() {
-  // The URL for the JSON data (replace "imperial" with "metric" for celsius)
   let url = "https://api.open-meteo.com/v1/forecast?latitude=51.51&longitude=-0.13&hourly=temperature_2m,apparent_temperature,precipitation,weathercode&current_weather=true";
   json = loadJSON(url);
 }
@@ -37,7 +35,7 @@ function setup() {
   wmoVals = [63, 3, 80, 61, 65, 0, 1, 2, 45, 48, 51, 53, 55, 81, 82, 95, 96, 99, 85, 86, 77, 71, 73, 75]; // an array of possible weathercode values to randomly pick from
   a = Math.round(random(0, wmoVals.length)); // calculate which wmoVal will be displayed
 
-  // random FALSE temperature value
+  // random FALSE temperature value rounded to 1 decimal place
   falseTemp = round(random(-10, 40), 1);
 
   // console information to check eveything is working
@@ -51,7 +49,6 @@ function setup() {
   noStroke();
   ellipseMode(CORNER);
   textSize(50);
-
 }
 
 function draw() {
@@ -108,7 +105,7 @@ function falseWeather() {
     ellipse(40, 50, 375);
 }
 
-// converting WMO codes to text
+// converting WMO codes to text & adding colour to reflect the apparent weather
 function convertWMO() {
   if(weather === 61){
     weatherText = "Slight Rain";
