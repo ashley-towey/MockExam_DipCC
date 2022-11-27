@@ -1,14 +1,19 @@
 /* Apparent Weather Predictor & Discombobulator */
 
-let appTemp = 0;    // apparent temperature [in degrees]
-let rain = 0;       // precipitation [in millimetres]
+// TRUE weather values
+let temp = 0;    // temperature [in degrees]
 let weather = "";   // weathercode [as a string]
 
 let json;
 
-let bgCol = '#D3D3D3'; 
+// starting colours
+let bgCol = '#D3D3D3';
 let cirCol = '#5A5A5A';
 let textCol = '#000000';
+
+// an array of values that will dislay the incorrect data
+let wmoVals = [];
+let a;
 
 function preload() {
   // The URL for the JSON data (replace "imperial" with "metric" for celsius)
@@ -20,36 +25,71 @@ function preload() {
 function setup() {
   createCanvas(600, 600);
 
-  temp = json.current_weather.temperature; // get the temperature
-  weather = json.current_weather.weathercode; // get weathercode
-  print(json.current_weather.time); // check the time
+  // choose a random WMO value from the wmoVals array
+  wmoVals = [63, 3, 80, 61, 65, 0, 1, 2, 45, 48, 51, 53, 55, 81, 82, 95, 96, 99]; // an array of possible weathercode values to randomly pick from
+  a = Math.round(random(0, wmoVals.length)); // calculate which wmoVal will be displayed
 
-  // mode initialisation
+  // console information to check eveything is working
+  console.log("Apparent Weather Predictor");
+  console.log(json.current_weather.time); // check the time
+  console.log(json.current_weather.temperature+"°"); // check the temperature
+  console.log("WMO "+json.current_weather.weathercode); // check the weathercode
+  console.log("False WMO "+wmoVals[a]);
+
+  // mode initialisations
   noStroke();
   ellipseMode(CORNER);
+  textSize(50);
 
 }
 
 function draw() {
-  background(200);
-  fill(cirCol); // circle fill
+  // IF mouse is pressed display the correct weather data
+  // OTHERWISE display the wrong weather data
+  if (mouseIsPressed === true) {
+    trueWeather();
+  } else {
+    falseWeather();
+  }
+}
 
-  // testing out drawing the circle which will be affected by the weather code
-  ellipse(40, 50, 375);
+function trueWeather() {
+  temp = json.current_weather.temperature; // get the temperature
+  weather = json.current_weather.weathercode; // get weathercode
 
   convertWMO(); // convert WMO codes into readable text format
 
   // Display all the data we got from https://open-meteo.com/en
-  textSize(50);
+  background(bgCol); 
   fill(textCol); // text colour fill
   text(weatherText, 75, 525);
-  text(temp + "°", 450, 250);
+  text(temp + "°", 450, 250);  
+  fill(cirCol); // circle fill
+  ellipse(40, 50, 375); // circle affected by weathercode data
+}
+
+function falseWeather() {
+    // randomised temp and weathercode values
+    temp = 35;
+    weather = wmoVals[a];
+
+    convertWMO(); // convert WMO codes into readable text format
+
+    background(bgCol);
+    fill(textCol); // text colour fill
+    text(weatherText, 75, 525);
+    text(temp + "°", 450, 250);  
+    fill(cirCol);
+    ellipse(40, 50, 375);
 }
 
 // converting WMO codes to text
-function convertWMO() { 
+function convertWMO() {
   if(weather === 61){
     weatherText = "Slight Rain";
+    bgCol = '#536878'; 
+    cirCol = '#6699cc';
+    textCol = '#b7c9e2';
   } else if (weather === 63) {
     weatherText = "Moderate Rain"
   } else if (weather === 65) {
@@ -60,6 +100,9 @@ function convertWMO() {
     weatherText = "Partly Cloudy";
   } else if (weather === 3) {
     weatherText = "Overcast";
+    bgCol = '#5A5A5A'; 
+    cirCol = '#D3D3D3';
+    textCol = '#D3D3D3';
   } else if (weather === 45 || weather === 48) {
     weatherText = "Foggy Conditions";
   } else if (weather === 51 || weather === 53 || weather === 55) {

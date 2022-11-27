@@ -6,3 +6,6 @@ This comes from the frustration of always having the weather display as wrong on
 How much do you believe the weather forecast? 
 You check the weather on your favourite weather app, it says it's raining heavily but you can see it's actually sunny. 
 How stupid are these supposedly clever forecasts? 
+
+++ colour temperature value
+++ animation for the wmo codes
