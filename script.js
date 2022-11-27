@@ -18,6 +18,12 @@ let falseTemp = 0;
 let wmoVals = [];
 let a;
 
+// x and y for animated circles/rain/snow
+let x = 30;
+let y = -600; 
+let vel = 5;
+let cirSize = 5;
+
 function preload() {
   // The URL for the JSON data (replace "imperial" with "metric" for celsius)
   let url = "https://api.open-meteo.com/v1/forecast?latitude=51.51&longitude=-0.13&hourly=temperature_2m,apparent_temperature,precipitation,weathercode&current_weather=true";
@@ -28,7 +34,7 @@ function setup() {
   createCanvas(600, 600);
 
   // choose a random WMO value from the wmoVals array
-  wmoVals = [63, 3, 80, 61, 65, 0, 1, 2, 45, 48, 51, 53, 55, 81, 82, 95, 96, 99]; // an array of possible weathercode values to randomly pick from
+  wmoVals = [63, 3, 80, 61, 65, 0, 1, 2, 45, 48, 51, 53, 55, 81, 82, 95, 96, 99, 85, 86, 77, 71, 73, 75]; // an array of possible weathercode values to randomly pick from
   a = Math.round(random(0, wmoVals.length)); // calculate which wmoVal will be displayed
 
   // random FALSE temperature value
@@ -56,6 +62,14 @@ function draw() {
   } else {
     falseWeather();
   }
+
+  if (weatherText === "Snow fall") {
+    // animation with circles jittering like snow
+    for(let i = 0; i < width; i++) {
+      fill(255);
+      ellipse(i, y+random(0, 1200), cirSize);
+    }
+  }
 }
 
 function trueWeather() {
@@ -78,8 +92,8 @@ function trueWeather() {
 
 function falseWeather() {
     // randomised temp and weathercode values
-    // temp = 35;
     weather = wmoVals[a];
+    // weather = 96; // use to test weather values and colours
 
     convertWMO(); // convert WMO codes into readable text format
 
@@ -103,26 +117,58 @@ function convertWMO() {
     textCol = '#b7c9e2';
   } else if (weather === 63) {
     weatherText = "Moderate Rain"
+    bgCol = '#536878'; 
+    cirCol = '#152238';
+    textCol = '#152238';
   } else if (weather === 65) {
     weatherText = "Heavy Rain";
+    bgCol = '#152238'; 
+    cirCol = '#536878';
+    textCol = '#536878';
   } else if (weather === 0) {
     weatherText = "Clear Sky";
+    bgCol = '#ADD8E6'; 
+    cirCol = '#FFFF00';
+    textCol = '#FF69B4';
   } else if (weather === 1 || weather === 2) {
     weatherText = "Partly Cloudy";
+    bgCol = '#ADD8E6'; 
+    cirCol = '#f8f8ff';
+    textCol = '#f8f8ff';
   } else if (weather === 3) {
     weatherText = "Overcast";
-    bgCol = '#5A5A5A'; 
+    bgCol = '#949494'; 
     cirCol = '#D3D3D3';
     textCol = '#D3D3D3';
   } else if (weather === 45 || weather === 48) {
-    weatherText = "Foggy Conditions";
+    weatherText = "Foggy";
+    bgCol = '#FFFFFF'; 
+    cirCol = '#F1F1F1';
+    textCol = '#F1F1F1';
   } else if (weather === 51 || weather === 53 || weather === 55) {
     weatherText = "Drizzle";
+    bgCol = '#536878'; 
+    cirCol = '#ADD8E6';
+    textCol = '#b7c9e2';
   } else if (weather === 80 || weather === 81) {
     weatherText = "Rain Showers";
+    bgCol = '#536878'; 
+    cirCol = '#6699cc';
+    textCol = '#b7c9e2';
   } else if (weather === 82) {
     weatherText = "Violent Rain Showers";
+    bgCol = '#0B0B45'; 
+    cirCol = '#b7c9e2';
+    textCol = '#b7c9e2';
   } else if (weather === 95 || weather === 96 || weather === 99) {
     weatherText = "Thunderstorms";
+    bgCol = '#0B0B0B'; 
+    cirCol = '#D3D3D3';
+    textCol = '#FFFF00';
+  } else if (weather === 85 || weather === 86 || weather === 77 || weather === 71 || weather === 73 || weather === 75){
+    weatherText = "Snow fall";
+    bgCol = '#D3D3D3'; 
+    cirCol = '#FFFFFF';
+    textCol = '#FFFFFF';
   }
 }
