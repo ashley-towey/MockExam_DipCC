@@ -6,6 +6,10 @@ let weather = "";   // weathercode [as a string]
 
 let json;
 
+let bgCol = '#D3D3D3'; 
+let cirCol = '#5A5A5A';
+let textCol = '#000000';
+
 function preload() {
   // The URL for the JSON data (replace "imperial" with "metric" for celsius)
   let url = "https://api.open-meteo.com/v1/forecast?latitude=51.51&longitude=-0.13&hourly=temperature_2m,apparent_temperature,precipitation,weathercode&current_weather=true";
@@ -18,25 +22,32 @@ function setup() {
 
   temp = json.current_weather.temperature; // get the temperature
   weather = json.current_weather.weathercode; // get weathercode
+  print(json.current_weather.time); // check the time
+
+  // mode initialisation
+  noStroke();
+  ellipseMode(CORNER);
+
 }
 
 function draw() {
   background(200);
-  fill(0);
+  fill(cirCol); // circle fill
 
   // testing out drawing the circle which will be affected by the weather code
-  ellipse(250, 250, 375);
+  ellipse(40, 50, 375);
 
   convertWMO(); // convert WMO codes into readable text format
 
   // Display all the data we got from https://open-meteo.com/en
-  text("City: London", 10, 50);
-  text("Temperature: " + temp, 10, 70);
-  text("Weathercode: " + weatherText, 10, 90);
+  textSize(50);
+  fill(textCol); // text colour fill
+  text(weatherText, 75, 525);
+  text(temp + "°", 450, 250);
 }
 
-function convertWMO() {
-  // converting WMO codes to text
+// converting WMO codes to text
+function convertWMO() { 
   if(weather === 61){
     weatherText = "Slight Rain";
   } else if (weather === 63) {
