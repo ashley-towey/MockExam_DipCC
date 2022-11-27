@@ -1,33 +1,7 @@
-# MockExam_DipCC
+# Apparent Weather Predictor
 
-Part A 
- 
-You are expected to produce a creative piece of work using the p5.js framework within a given set of constraints specified below. Beyond these constraints, you are free to include any other p5.js or JavaScript techniques, functions, or libraries to realize your creative vision. 
-
-
-Technical constraints  
-The following must be incorporated into your project:  
-
-An array. 
-
-A ‘While’ or ‘For’ Loop.  
-
-A conditional statement (<, >, ==, >=, <=).  
-
-A custom function (i.e. one you have written).  
-
-Use of p5.js’ random() and/or map().  
-
-Utilize the Weather API and make use of at least two live data values. 
-
-Incorporate a GUI element (i.e. button or a slider) OR make use of an event (i.e. keyboard, mouse - see p5js.org/reference). 
-
- 
-
-Part B 
- 
-Write a short statement situating your p5.js project (part A) in a broader social, economic, and technical context. We are looking for between 600-800 words and encourage you to draw from the lectures, practical exercises, and inspirational work you have encountered in this unit (and across the diploma), alongside your everyday experiences of computing and network use.  
-
-To help you write, consider there is no story too small or insignificant, as computation can be understood through multiple scales and registers. Those scales can range from the personal act of writing a ‘for loop’ to the scale of call centres, social media platforms, global migration, or a university education system. Registers to consider might include commentary on technical, aesthetic, economic, race, class, gender, institutional, ethical, or emotional associations of your project – meaning the act of writing and running code can be thought about in more than technical terms.   
-
-In your text, we expect you to highlight examples of work that have inspired you and the ways you have built-on or leveraged, those ideas in your submitted project. Finally, we expect you to reflect on what has worked, what didn’t, what could be improved, and how your project could be extended. 
+I’m a weather app obsessive. Always cross checking between different sites to get the best estimate of what the weather will be at any given time. Even to the point of checking what the weather is right now in order to know what to wear when I leave the house. This web app is for people like me, to tell them to simply look out the window, smell the air and actually exist in the world rather than through a screen based interface. The apparent weather predictor gives you entirely the wrong weather, forcing you to take matters into your own hands and go out and see the world for yourself. 
+This also challenges our notion that computers - or machines in general - are always correct. It is through this interaction with weather forecasts that we see this for the falsehood that it is. We can see it’s raining outside, and yet all the forecasts tell us it’s dry. Systems are only as accurate as the data that they can be fed, and having a weather station on top of every house seems unrealistic (although something in which I am considering investing). The aggregation, or averaging out, between different weather sources creates assumptions about a location based on the differences or similarities it can see between its inputs. This distinctly depersonalised approach is what creates mistakes, because the natural world doesn’t operate on such a linear scale. 
+This example can also be seen in machine vision, where our inherent differences as human beings are not readable by machines unless trained specifically to do so. Creating a face tracking algorithm is limited by the number of people it is trained on, everything that happens in between is an assumption. It is through these assumptions that mistakes are made, by excluding people from systems that are created to be so-called universal, machine vision reinforces prejudices and stereotypes. 
+By trying to create my own weather app I myself encountered issues with reading JSON files, and being able to manipulate them in a way in which could be human readable. This further reinforced my understanding of the gap between machine readable and human readable content. I was trying to get the current hour from an hourly forecast, but could not find the correct string in the array in a way which would update because of the way in which the files were created. This limited the number of data output variables I could use because I could only use the ‘current_weather’ section of the API. This interaction - and subsequent barrier - meant I was forced to try to find a workaround and bend myself to the output of the JSON file. 
+In order to expand this project beyond its very minimal current scope I would like to increase the engagement in the surrounding context. One example would be to instruct the participant to take a photo of the weather where they are, alongside a written account of their perception of how the weather is outside today. This could then feed into a more engaged practice with the weather and how our perception of it changes over time. This would also feed into people making an engaged decision to step over the threshold and into the outside world. 
