@@ -3,6 +3,7 @@
 // TRUE weather values
 let temp = 0;    // temperature [in degrees]
 let weather = "";   // weathercode [as a string]
+let weatherText = "";
 
 let json;
 
@@ -11,7 +12,9 @@ let bgCol = '#D3D3D3';
 let cirCol = '#5A5A5A';
 let textCol = '#000000';
 
-// an array of values that will dislay the incorrect data
+let falseTemp = 0;
+
+// an array of values that will dislay the FALSE data
 let wmoVals = [];
 let a;
 
@@ -19,7 +22,6 @@ function preload() {
   // The URL for the JSON data (replace "imperial" with "metric" for celsius)
   let url = "https://api.open-meteo.com/v1/forecast?latitude=51.51&longitude=-0.13&hourly=temperature_2m,apparent_temperature,precipitation,weathercode&current_weather=true";
   json = loadJSON(url);
-
 }
 
 function setup() {
@@ -28,6 +30,9 @@ function setup() {
   // choose a random WMO value from the wmoVals array
   wmoVals = [63, 3, 80, 61, 65, 0, 1, 2, 45, 48, 51, 53, 55, 81, 82, 95, 96, 99]; // an array of possible weathercode values to randomly pick from
   a = Math.round(random(0, wmoVals.length)); // calculate which wmoVal will be displayed
+
+  // random FALSE temperature value
+  falseTemp = round(random(-10, 40), 1);
 
   // console information to check eveything is working
   console.log("Apparent Weather Predictor");
@@ -63,6 +68,9 @@ function trueWeather() {
   background(bgCol); 
   fill(textCol); // text colour fill
   text(weatherText, 75, 525);
+  let g = map(temp, 0, 40, 255, 0);
+  let b = map(temp, 0, 40, 255, 0);
+  fill(255, g, b); // false weather temp fill
   text(temp + "°", 450, 250);  
   fill(cirCol); // circle fill
   ellipse(40, 50, 375); // circle affected by weathercode data
@@ -70,7 +78,7 @@ function trueWeather() {
 
 function falseWeather() {
     // randomised temp and weathercode values
-    temp = 35;
+    // temp = 35;
     weather = wmoVals[a];
 
     convertWMO(); // convert WMO codes into readable text format
@@ -78,7 +86,10 @@ function falseWeather() {
     background(bgCol);
     fill(textCol); // text colour fill
     text(weatherText, 75, 525);
-    text(temp + "°", 450, 250);  
+    let falseG = map(falseTemp, 0, 40, 255, 0);
+    let falseB = map(falseTemp, 0, 40, 255, 0);
+    fill(255, falseG, falseB); // false weather temp fill
+    text(falseTemp + "°", 450, 250);  
     fill(cirCol);
     ellipse(40, 50, 375);
 }
