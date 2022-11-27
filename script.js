@@ -1,4 +1,5 @@
-/* Apparent Weather Predictor & Discombobulator */
+/* Apparent Weather Predictor [Discombobulator] */
+/* Created by Ashley Towey [0220201] for CCI Mock Exam */
 
 // TRUE weather values
 let temp = 0;    // temperature [in degrees]
@@ -7,14 +8,14 @@ let weatherText = "";
 
 let json;
 
-// starting colours
+// starting/base colours
 let bgCol = '#D3D3D3';
 let cirCol = '#5A5A5A';
 let textCol = '#000000';
 
 // an array of values that will dislay the FALSE data
 let wmoVals = [];
-let a;
+let a; // used to count through wmoVals
 let falseTemp = 0; // initialise the wrong temperature
 
 // x and y for animated circles/rain/snow
@@ -43,12 +44,11 @@ function setup() {
   console.log(json.current_weather.time); // check the time
   console.log(json.current_weather.temperature+"°"); // check the temperature
   console.log("WMO "+json.current_weather.weathercode); // check the weathercode
-  console.log("False WMO "+wmoVals[a]);
+  console.log("False WMO "+wmoVals[a]); // check the wrong WMO
 
   // mode initialisations
   noStroke();
   ellipseMode(CORNER);
-  textSize(50);
 }
 
 function draw() {
@@ -85,12 +85,15 @@ function trueWeather() {
   text(temp + "°", 450, 250);  
   fill(cirCol); // circle fill
   ellipse(40, 50, 375); // circle affected by weathercode data
+  textSize(12);
+  text("* true weather (ish)", 420, 570);
+  textSize(50);
 }
 
 function falseWeather() {
     // randomised temp and weathercode values
     weather = wmoVals[a];
-    // weather = 96; // use to test weather values and colours
+    // weather = 96; // USE to TEST weather values and colours
 
     convertWMO(); // convert WMO codes into readable text format
 
@@ -103,6 +106,9 @@ function falseWeather() {
     text(falseTemp + "°", 450, 250);  
     fill(cirCol);
     ellipse(40, 50, 375);
+    textSize(12);
+    text("* false weather", 420, 570);
+    textSize(50);
 }
 
 // converting WMO codes to text & adding colour to reflect the apparent weather
