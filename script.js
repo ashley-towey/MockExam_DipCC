@@ -1,4 +1,4 @@
-/* Apparent Weather Predictor [Discombobulator] */
+/* Apparent Weather Predictor [aka The Discombobulator] */
 /* Created by Ashley Towey [0220201] for CCI Mock Exam */
 
 // TRUE weather values
