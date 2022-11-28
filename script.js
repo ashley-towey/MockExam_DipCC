@@ -41,7 +41,12 @@ function setup() {
 
   // console information to check eveything is working
   console.log("Apparent Weather Predictor");
-  console.log(json.current_weather.time); // check the time
+  let jsonTimeDate = json.current_weather.time; // get the time and data value
+  let dateTime = jsonTimeDate.split("T"); // split the date and time by "T"
+  console.log(dateTime[0]); // check the date
+  console.log(dateTime[1]); // check the time
+  console.log("Latitude "+json.latitude); // check latitude
+  console.log("Longitude "+json.longitude); // check longitude
   console.log(json.current_weather.temperature+"°"); // check the temperature
   console.log("WMO "+json.current_weather.weathercode); // check the weathercode
   console.log("False WMO "+wmoVals[a]); // check the wrong WMO
